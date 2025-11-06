@@ -1,0 +1,51 @@
+<form [formGroup]="form" (ngSubmit)="calculate()">
+<div>
+<label >Name</label>
+<input formControlName="name" />
+</div>
+
+
+<div>
+<label>Age Next Birthday</label>
+<input type="number" formControlName="ageNextBirthday" />
+</div>
+
+
+<div>
+<label>Date of Birth (MM/YYYY)</label>
+<input formControlName="dateOfBirth" placeholder="MM/YYYY" />
+</div>
+
+
+<div>
+<label>Usual Occupation</label>
+<select formControlName="occupation">
+<option value="">-- Select occupation --</option>
+<option *ngFor="let o of occupations" [value]="o">{{o}}</option>
+</select>
+</div>
+
+
+<div>
+<label>Death - Sum Insured</label>
+<input type="number" formControlName="deathSumInsured" />
+</div>
+
+
+<div style="margin-top: 12px;">
+<button type="submit" [disabled]="!form.valid || loading">Calculate</button>
+</div>
+</form>
+
+
+<div *ngIf="loading">Calculating...</div>
+<div *ngIf="error" style="color:red">{{error}}</div>
+
+
+<div *ngIf="result" style="margin-top:12px;">
+<h3>Premium Result</h3>
+<p>Occupation: {{result.occupation}}</p>
+<p>Factor: {{result.factor}}</p>
+<p>Age: {{result.age}}</p>
+<p>Monthly Premium: {{result.monthlyPremium | number:'1.2-2'}}</p>
+</div>
